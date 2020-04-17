@@ -1,0 +1,52 @@
+import { Head } from 'mdx-deck';
+export { default as theme } from './theme';
+import { LiveCode } from 'mdx-deck-live-code';
+import LotusRPC from '@filecoin-shipyard/lotus-client-rpc';
+import BrowserProvider from '@filecoin-shipyard/lotus-client-provider-browser';
+import schema from '@filecoin-shipyard/lotus-client-schema/prototype/testnet-v3.js';
+import { useState } from 'react';
+
+<Head>
+	<title>Tour de Lotus</title>
+</Head>
+
+# Tour de Lotus
+
+---
+
+<LiveCode
+	title="External File"
+  size="fullscreen"
+	code={require('!raw-loader!./test-external.js')}
+  providerProps={{ noInline: true }}
+	editorProps={{ style: { fontSize: '0.4em', background: '#001628' } }}
+/>
+
+---
+
+<LiveCode
+	title="External File 2"
+  size="fullscreen"
+	code={require('!raw-loader!./test-external-2.js')}
+  providerProps={{ noInline: true }}
+	editorProps={{ style: { fontSize: '0.4em', background: '#001628' } }}
+/>
+
+---
+
+<LiveCode
+	title="External File 3"
+  size="fullscreen"
+	code={require('!raw-loader!./test-external-3.js')}
+  providerProps={{
+    noInline: true,
+    scope: {
+      LotusRPC,
+      BrowserProvider,
+      schema,
+      useState
+    }
+  }}
+	editorProps={{ style: { fontSize: '0.4em', background: '#001628' } }}
+/>
+
