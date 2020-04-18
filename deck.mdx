@@ -7,6 +7,7 @@ import { LiveCode } from 'mdx-deck-live-code';
 // import BrowserProvider from './lotus-client-provider-browser';
 // import schema from '@filecoin-shipyard/lotus-client-schema/prototype/testnet-v3.js';
 import { useState, useEffect } from 'react';
+import ReactJson from 'react-json-view';
 import client from './client';
 
 <Head>
@@ -14,6 +15,32 @@ import client from './client';
 </Head>
 
 # Tour de Lotus
+
+---
+
+Select a network:
+
+<div>
+  <input
+    type='radio'
+    name='net'
+    value='localnet'
+    checked={true}
+  />
+  Localnet
+</div>
+<div>
+  <input
+    type='radio'
+    name='net'
+    value='simulated'
+  />
+  Simulated
+</div>
+
+---
+
+## Let's connect to our Node
 
 ---
 
@@ -31,3 +58,107 @@ import client from './client';
 	editorProps={{ style: { fontSize: '0.4em', background: '#001628' } }}
 />
 
+---
+
+<LiveCode
+	title="ChainHead Result"
+  size="fullscreen"
+	code={require('!raw-loader!./chain-head-result.js')}
+  providerProps={{
+    scope: {
+      client,
+      useState,
+      useEffect,
+      ReactJson
+    }
+  }}
+	editorProps={{ style: { fontSize: '0.4em', background: '#001628' } }}
+/>
+
+---
+
+## Syncing the Chain
+
+---
+
+## ChainHead JSON
+
+---
+
+## Tipsets
+
+---
+
+### State
+
+---
+
+## Addresses
+
+---
+
+## Messages
+
+---
+
+## Signing
+
+---
+
+## Message Pool
+
+---
+
+## Nodes
+
+---
+
+## Networking
+
+---
+
+## Miners
+
+---
+
+## Power
+
+--- 
+
+## Block Rewards
+
+---
+
+## Sectors
+
+---
+
+## Proofs
+
+---
+
+## Markets
+
+---
+
+## Asks
+
+---
+
+## Making Deals
+
+---
+
+## Deal Status
+
+---
+
+## Payment Channels
+
+---
+
+## Proving
+
+---
+
+## Actors

@@ -18,7 +18,7 @@
 
   return (
     <div>
-      <h2>ChainHead Height</h2>
+      <h2>Height</h2>
       <h1>{height}</h1>
       {!started && <button onClick={start}>Start</button>}
     </div>
