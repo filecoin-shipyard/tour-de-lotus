@@ -2,11 +2,17 @@ function useLotusClient () {
   const [client, setClient] = useState()
 
   useEffect(() => {
+    console.log('Jim starting client')
     const api = 'lotus.testground.ipfs.team/api'
     const wsUrl = 'wss://' + api + `/1/node/rpc/v0`
     const provider = new BrowserProvider(wsUrl)
     const client = new LotusRPC(provider, { schema })
     setClient(client)
+    return cleanup
+
+    async function cleanup () {
+      await client.destroy()
+    }
   }, [])
 
   return client

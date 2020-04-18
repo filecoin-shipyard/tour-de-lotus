@@ -20,11 +20,6 @@ class LotusClientRPC {
     })
   }
 
-  async ChainHead () {
-    console.log('Jim wuz here')
-    return 'Jim'
-  }
-
   async callSchemaMethod (method, schemaMethod, ...args) {
     await this.provider.connect()
     const request = {
@@ -40,8 +35,8 @@ class LotusClientRPC {
     }
   }
 
-  close () {
-    this.provider.close()
+  async destroy () {
+    await this.provider.destroy()
   }
 }
 

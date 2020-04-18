@@ -62,6 +62,9 @@ class BrowserProvider {
 
   sendWs (jsonRpcRequest) {
     const promise = new Promise((resolve, reject) => {
+      if (this.destroyed) {
+        reject(new Error('WebSocket has already been destroyed'))
+      }
       this.ws.send(JSON.stringify(jsonRpcRequest))
       // FIXME: Add timeout
       this.inflight.set(jsonRpcRequest.id, (err, result) => {
@@ -136,9 +139,10 @@ class BrowserProvider {
     }
   }
 
-  close () {
+  async destroy () {
     if (this.ws) {
       this.ws.close()
+      this.destroyed = true
     }
   }
 }
