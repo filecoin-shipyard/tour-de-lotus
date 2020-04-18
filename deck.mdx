@@ -2,11 +2,12 @@ import { Head } from 'mdx-deck';
 export { default as theme } from './theme';
 import { LiveCode } from 'mdx-deck-live-code';
 // import LotusRPC from '@filecoin-shipyard/lotus-client-rpc';
-import LotusRPC from './lotus-client-rpc';
+// import LotusRPC from './lotus-client-rpc';
 // import BrowserProvider from '@filecoin-shipyard/lotus-client-provider-browser';
-import BrowserProvider from './lotus-client-provider-browser';
-import schema from '@filecoin-shipyard/lotus-client-schema/prototype/testnet-v3.js';
+// import BrowserProvider from './lotus-client-provider-browser';
+// import schema from '@filecoin-shipyard/lotus-client-schema/prototype/testnet-v3.js';
 import { useState, useEffect } from 'react';
+import client from './client';
 
 <Head>
 	<title>Tour de Lotus</title>
@@ -41,15 +42,16 @@ import { useState, useEffect } from 'react';
   size="fullscreen"
 	code={require('!raw-loader!./test-external-3.js')}
   providerProps={{
-    noInline: true,
+    jim: "Jim1",
     scope: {
-      LotusRPC,
-      BrowserProvider,
-      schema,
+      client,
       useState,
       useEffect
     }
   }}
 	editorProps={{ style: { fontSize: '0.4em', background: '#001628' } }}
+  previewProps={{
+    jim: "Jim1"
+  }}
 />
 
