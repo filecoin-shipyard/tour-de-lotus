@@ -1,15 +1,30 @@
 () => {
   const [height, setHeight] = useState()
+  const [started, setStarted] = useState()
 
   useEffect(() => {
-    if (!client) return
-    setHeight("Loading...")
+    let state = { canceled: false }
+    if (!started) return
+    setHeight('Loading...')
     ;(async function run () {
       const result = await client.chainHead()
       setHeight(result.Height)
-      setTimeout(run, 1000)
+      if (!state.canceled) setTimeout(run, 1000)
     })()
-  }, [client])
+    return () => {
+      state.canceled = true
+    }
+  }, [started])
 
-  return <h1>{height}</h1>
+  return (
+    <div>
+      <h2>ChainHead Height</h2>
+      <h1>{height}</h1>
+      {!started && <button onClick={start}>Start</button>}
+    </div>
+  )
+
+  function start () {
+    setStarted(true)
+  }
 }
