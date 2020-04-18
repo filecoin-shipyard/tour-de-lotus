@@ -18,31 +18,10 @@ import client from './client';
 ---
 
 <LiveCode
-	title="External File"
+	title="ChainHead Height"
   size="fullscreen"
-	code={require('!raw-loader!./test-external.js')}
-  providerProps={{ noInline: true }}
-	editorProps={{ style: { fontSize: '0.4em', background: '#001628' } }}
-/>
-
----
-
-<LiveCode
-	title="External File 2"
-  size="fullscreen"
-	code={require('!raw-loader!./test-external-2.js')}
-  providerProps={{ noInline: true }}
-	editorProps={{ style: { fontSize: '0.4em', background: '#001628' } }}
-/>
-
----
-
-<LiveCode
-	title="External File 3"
-  size="fullscreen"
-	code={require('!raw-loader!./test-external-3.js')}
+	code={require('!raw-loader!./chain-head-height.js')}
   providerProps={{
-    jim: "Jim1",
     scope: {
       client,
       useState,
@@ -50,8 +29,5 @@ import client from './client';
     }
   }}
 	editorProps={{ style: { fontSize: '0.4em', background: '#001628' } }}
-  previewProps={{
-    jim: "Jim1"
-  }}
 />
 
