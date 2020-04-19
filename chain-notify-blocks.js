@@ -1,9 +1,10 @@
 () => {
   const [rounds, updateRounds] = useImmer([])
   const lastEl = useRef(null)
+  const [started, setStarted] = useState()
 
   useEffect(() => {
-    if (!client) return
+    if (!client || !started) return
     const cancelFunc = client.chainNotify(changes => {
       for (const change of changes) {
         const { Type: changeType, Val: val } = change
@@ -20,7 +21,7 @@
       }
     })
     return cancelFunc
-  }, [client])
+  }, [client, started])
 
   useEffect(() => {
     if (lastEl && lastEl.current) {
@@ -29,7 +30,9 @@
   })
 
   let content
-  if (rounds.length === 0) {
+  if (!started) {
+    content = <button onClick={() => setStarted(true)}>Start</button>
+  } else if (rounds.length === 0) {
     content = 'Loading...'
   } else {
     content = (

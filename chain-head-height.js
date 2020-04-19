@@ -20,11 +20,7 @@
     <div>
       <h2>Height</h2>
       <h1>{height}</h1>
-      {!started && <button onClick={start}>Start</button>}
+      {!started && <button onClick={() => setStarted(true)}>Start</button>}
     </div>
   )
-
-  function start () {
-    setStarted(true)
-  }
 }
