@@ -1,5 +1,5 @@
 () => {
-  const [chainHead, setChainHead] = useState(null)
+  const [chainHead, setChainHead] = useState()
 
   useEffect(() => {
     if (!client) return
@@ -9,14 +9,31 @@
     })()
   }, [client])
 
-  return (
-    <div>
-      <h2>ChainHead</h2>
+  let content
+  if (!chainHead) {
+    content = 'Loading...'
+  } else {
+    content = (
       <ReactJson
-      src={chainHead}
-      collapseStringsAfterLength={70}
-      displayDataTypes={false}
-    />
+        src={chainHead}
+        collapseStringsAfterLength={40}
+        displayDataTypes={false}
+        enableClipboard={false}
+      />
+    )
+  }
+  return (
+    <div
+      style={{
+        overflow: 'scroll',
+        fontSize: '0.8rem',
+        textAlign: 'left',
+        marginLeft: '64px',
+        height: '100vh'
+      }}
+    >
+      <h2>ChainHead</h2>
+      {content}
     </div>
   )
 }

@@ -77,6 +77,22 @@ Select a network:
 
 ---
 
+<LiveCode
+	title="ChainNotify Blocks"
+  size="fullscreen"
+	code={require('!raw-loader!./chain-notify-blocks.js')}
+  providerProps={{
+    scope: {
+      client,
+      useState,
+      useEffect
+    }
+  }}
+	editorProps={{ style: { fontSize: '0.4em', background: '#001628' } }}
+/>
+
+---
+
 ## Syncing the Chain
 
 ---
