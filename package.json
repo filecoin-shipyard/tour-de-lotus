@@ -16,19 +16,20 @@
 		"mdx-deck-live-code": "^0.1.0",
 		"react": "^16.13.1",
 		"react-dom": "^16.13.1",
-    "react-json-view": "^1.19.1"
+		"react-json-view": "^1.19.1",
+		"use-immer": "^0.4.0"
 	},
 	"devDependencies": {
 		"mdx-deck": "^1.8.2",
 		"raw-loader": "^1.0.0"
 	},
-  "resolutions": {
-    "mdx-deck/react": "^16.13.1",
-    "mdx-deck/react-dom": "^16.13.1"
-  },
-  "browserslist": [
-    "last 1 Chrome version"
-  ],
+	"resolutions": {
+		"mdx-deck/react": "^16.13.1",
+		"mdx-deck/react-dom": "^16.13.1"
+	},
+	"browserslist": [
+		"last 1 Chrome version"
+	],
 	"author": "Jeppe Reinhold <jeppereinhold@gmail.com> (https://reinhold.is)",
 	"repository": {
 		"type": "git",

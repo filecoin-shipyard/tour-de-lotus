@@ -6,8 +6,9 @@ import { LiveCode } from 'mdx-deck-live-code';
 // import BrowserProvider from '@filecoin-shipyard/lotus-client-provider-browser';
 // import BrowserProvider from './lotus-client-provider-browser';
 // import schema from '@filecoin-shipyard/lotus-client-schema/prototype/testnet-v3.js';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import ReactJson from 'react-json-view';
+import { useImmer } from 'use-immer';
 import client from './client';
 
 <Head>
@@ -84,8 +85,9 @@ Select a network:
   providerProps={{
     scope: {
       client,
-      useState,
-      useEffect
+      useEffect,
+      useRef,
+      useImmer
     }
   }}
 	editorProps={{ style: { fontSize: '0.4em', background: '#001628' } }}
