@@ -1,37 +1,23 @@
-# mdx-deck basic template
+# Tour de Lotus
 
-This was generated with [mdx-deck][]'s `npm init deck` command.
+A slideshow built with [mdx-deck](https://github.com/jxnblk/mdx-deck) and
+[mdx-deck-live-code](https://github.com/JReinhold/mdx-deck-live-code)
+that connects to a real or simulated [Lotus](https://github.com/filecoin-project/lotus)
+"local net" and uses [Lotus JS Client](https://github.com/filecoin-shipyard/js-lotus-client)
+to perform various API actions.
 
-## Development
+**Work in Progress**
 
-To run the presentation deck in development mode:
+We're using this to:
 
-```sh
-npm start
-```
+* give a quick overview of Lotus / Filecoin and the API
+* provide a series of starter examples
+* test the Lotus JS Client
+* test Lotus itself
+* prototype tests that will land in [js-lotus-client-testground](https://github.com/filecoin-shipyard/js-lotus-client-testground)
 
-Edit the [`deck.mdx`](deck.mdx) file to get started.
+## License
 
-## Exporting
+Dual-licensed under [MIT](https://github.com/filecoin-project/lotus/blob/master/LICENSE-MIT) +
+[Apache 2.0](https://github.com/filecoin-project/lotus/blob/master/LICENSE-APACHE)
 
-To build the presentation deck as static HTML:
-
-```sh
-npm run build
-```
-
-To export a PDF:
-
-```sh
-npm run pdf
-```
-
-To export an image of the title slide:
-
-```sh
-npm run image
-```
-
-For more documentation see the [mdx-deck][] repo.
-
-[mdx-deck]: https://github.com/jxnblk/mdx-deck

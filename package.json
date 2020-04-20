@@ -1,7 +1,6 @@
 {
-	"name": "mdx-deck-live-code-example",
-	"version": "1.0.0",
-	"description": "An example of using the mdx-deck-live-code module in an mdx-deck",
+	"name": "@filecoin-shipyard/tour-de-lotus",
+	"version": "0.0.1",
 	"scripts": {
 		"start": "mdx-deck deck.mdx",
 		"build": "mdx-deck build deck.mdx",
@@ -30,11 +29,19 @@
 	"browserslist": [
 		"last 1 Chrome version"
 	],
-	"author": "Jeppe Reinhold <jeppereinhold@gmail.com> (https://reinhold.is)",
+  "author": "Jim Pick (@jimpick)",
+  "license": "(Apache-2.0 AND MIT)",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/JReinhold/mdx-deck-live-code.git"
+		"url": "https://github.com/filecoin-shipyard/tour-de-lotus.git"
 	},
-	"license": "NoHarm-draft",
-	"private": false
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/filecoin-shipyard/tour-de-lotus.git"
+  },
+  "bugs": {
+    "url": "https://github.com/filecoin-shipyard/tour-de-lotus/issues"
+  },
+  "homepage": "https://github.com/filecoin-shipyard/tour-de-lotus#readme",
+	"description": "A slideshow tour of Lotus using the Lotus JS Client"
 }
