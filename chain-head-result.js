@@ -2,11 +2,14 @@
   const [chainHead, setChainHead] = useState()
 
   useEffect(() => {
+    const state = { cancelled: false }
     if (!client) return
     ;(async function run () {
       const result = await client.chainHead()
+      if (state.cancelled) return
       setChainHead(result)
     })()
+    return () => { state.cancelled = true }
   }, [client])
 
   let content

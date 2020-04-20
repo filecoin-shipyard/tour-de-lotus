@@ -1,11 +1,10 @@
 () => {
   const [rounds, updateRounds] = useImmer([])
   const lastEl = useRef(null)
-  const [started, setStarted] = useState()
 
   useEffect(() => {
-    if (!client || !started) return
-    const cancelFunc = client.chainNotify(changes => {
+    if (!client || tourContext.index !== slideIndex) return
+    const [cancelFunc, promise] = client.chainNotify(changes => {
       for (const change of changes) {
         const { Type: changeType, Val: val } = change
         const { Height: height, Blocks: blocks } = val
@@ -20,8 +19,9 @@
         }
       }
     })
+    promise.catch(err => { console.error(err) })
     return cancelFunc
-  }, [client, started])
+  }, [client, tourContext.index])
 
   useEffect(() => {
     if (lastEl && lastEl.current) {
@@ -30,9 +30,7 @@
   })
 
   let content
-  if (!started) {
-    content = <button onClick={() => setStarted(true)}>Start</button>
-  } else if (rounds.length === 0) {
+  if (rounds.length === 0) {
     content = 'Loading...'
   } else {
     content = (
@@ -41,11 +39,11 @@
           .slice(0, rounds.length - 1)
           .map(round => {
             const { height, miners } = round
-            return <div style={{marginBottom: '2rem', color: 'gray'}}>{height}: {miners.join(' ')}</div>
+            return <div key={height} style={{marginBottom: '2rem', color: 'gray'}}>{height}: {miners.join(' ')}</div>
           })}
         {rounds.slice(-1).map(round => {
           const { height, miners } = round
-          return <div ref={lastEl}>{height}: {miners.join(' ')}</div>
+          return <div key={height} ref={lastEl}>{height}: {miners.join(' ')}</div>
         })}
       </div>
     )

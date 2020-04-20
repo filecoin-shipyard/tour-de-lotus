@@ -1,26 +1,24 @@
 () => {
   const [height, setHeight] = useState()
-  const [started, setStarted] = useState()
 
   useEffect(() => {
     let state = { canceled: false }
-    if (!started) return
+    if (tourContext.index !== slideIndex) return
     setHeight('Loading...')
     ;(async function run () {
+      if (state.canceled) return
       const result = await client.chainHead()
+      if (state.canceled) return
       setHeight(result.Height)
-      if (!state.canceled) setTimeout(run, 1000)
+      setTimeout(run, 1000)
     })()
-    return () => {
-      state.canceled = true
-    }
-  }, [started])
+    return () => { state.canceled = true }
+  }, [tourContext.index])
 
   return (
     <div>
       <h2>Height</h2>
       <h1>{height}</h1>
-      {!started && <button onClick={() => setStarted(true)}>Start</button>}
     </div>
   )
 }

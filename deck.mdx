@@ -1,18 +1,19 @@
-import { Head } from 'mdx-deck';
-export { default as theme } from './theme';
-import { LiveCode } from 'mdx-deck-live-code';
+import { Head } from 'mdx-deck'
+import { TourContext } from './theme'
+export { default as theme } from './theme'
+import { LiveCode } from 'mdx-deck-live-code'
 // import LotusRPC from '@filecoin-shipyard/lotus-client-rpc';
 // import LotusRPC from './lotus-client-rpc';
 // import BrowserProvider from '@filecoin-shipyard/lotus-client-provider-browser';
 // import BrowserProvider from './lotus-client-provider-browser';
 // import schema from '@filecoin-shipyard/lotus-client-schema/prototype/testnet-v3.js';
-import { useState, useEffect, useRef } from 'react';
-import ReactJson from 'react-json-view';
-import { useImmer } from 'use-immer';
-import client from './client';
+import { useState, useEffect, useRef } from 'react'
+import ReactJson from 'react-json-view'
+import { useImmer } from 'use-immer'
+import client from './client'
 
 <Head>
-	<title>Tour de Lotus</title>
+  <title>Tour de Lotus</title>
 </Head>
 
 # Tour de Lotus
@@ -22,20 +23,11 @@ import client from './client';
 Select a network:
 
 <div>
-  <input
-    type='radio'
-    name='net'
-    value='localnet'
-    checked={true}
-  />
+  <input type='radio' name='net' value='localnet' defaultChecked={true} />
   Localnet
 </div>
 <div>
-  <input
-    type='radio'
-    name='net'
-    value='simulated'
-  />
+  <input type='radio' name='net' value='simulated' />
   Simulated
 </div>
 
@@ -45,26 +37,32 @@ Select a network:
 
 ---
 
-<LiveCode
-	title="ChainHead Height"
-  size="fullscreen"
-	code={require('!raw-loader!./chain-head-height.js')}
-  providerProps={{
-    scope: {
-      client,
-      useState,
-      useEffect
-    }
-  }}
-	editorProps={{ style: { fontSize: '0.4em', background: '#001628' } }}
-/>
+<TourContext.Consumer>
+  {tourContext => (
+    <LiveCode
+      title='ChainHead Height'
+      size='fullscreen'
+      code={require('!raw-loader!./chain-head-height.js')}
+      providerProps={{
+        scope: {
+          client,
+          useState,
+          useEffect,
+          tourContext,
+          slideIndex: 3
+        }
+      }}
+      editorProps={{ style: { fontSize: '0.4em', background: '#001628' } }}
+    />
+  )}
+</TourContext.Consumer>
 
 ---
 
 <LiveCode
-	title="ChainHead Result"
-  size="fullscreen"
-	code={require('!raw-loader!./chain-head-result.js')}
+  title='ChainHead Result'
+  size='fullscreen'
+  code={require('!raw-loader!./chain-head-result.js')}
   providerProps={{
     scope: {
       client,
@@ -73,26 +71,31 @@ Select a network:
       ReactJson
     }
   }}
-	editorProps={{ style: { fontSize: '0.4em', background: '#001628' } }}
+  editorProps={{ style: { fontSize: '0.4em', background: '#001628' } }}
 />
 
 ---
 
-<LiveCode
-	title="ChainNotify Blocks"
-  size="fullscreen"
-	code={require('!raw-loader!./chain-notify-blocks.js')}
-  providerProps={{
-    scope: {
-      client,
-      useEffect,
-      useRef,
-      useState,
-      useImmer
-    }
-  }}
-	editorProps={{ style: { fontSize: '0.4em', background: '#001628' } }}
-/>
+<TourContext.Consumer>
+  {tourContext => (
+    <LiveCode
+      title='ChainNotify Blocks'
+      size='fullscreen'
+      code={require('!raw-loader!./chain-notify-blocks.js')}
+      providerProps={{
+        scope: {
+          client,
+          useEffect,
+          useRef,
+          useImmer,
+          tourContext,
+          slideIndex: 5
+        }
+      }}
+      editorProps={{ style: { fontSize: '0.4em', background: '#001628' } }}
+    />
+  )}
+</TourContext.Consumer>
 
 ---
 
@@ -142,7 +145,7 @@ Select a network:
 
 ## Power
 
---- 
+---
 
 ## Block Rewards
 
