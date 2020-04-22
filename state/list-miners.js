@@ -17,9 +17,13 @@
   if (!miners) {
     content = 'Loading...'
   } else {
-    content = <ul>
-      {miners.map(miner => <li key={miner}>{miner}</li>)}
-    </ul>
+    content = (
+      <div style={{display: 'flex', justifyContent: 'center'}}>
+        <ul style={{textAlign: 'left'}}>
+          {miners.map(miner => <li key={miner}>{miner}</li>)}
+        </ul>
+      </div>
+    )
   }
   return (
     <div>
