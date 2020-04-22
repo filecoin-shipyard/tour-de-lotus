@@ -99,6 +99,92 @@ Select a network:
 
 ---
 
+# State
+
+---
+
+<TourContext.Consumer>
+  {tourContext => (
+    <LiveCode
+      title='State Power All'
+      size='fullscreen'
+      code={require('!raw-loader!./state/power-all.js')}
+      providerProps={{
+        scope: {
+          client,
+          useState,
+          useEffect,
+          tourContext,
+          slideIndex: 7
+        }
+      }}
+      editorProps={{ style: { fontSize: '0.4em', background: '#001628' } }}
+    />
+  )}
+</TourContext.Consumer>
+
+---
+
+## Blocks
+
+---
+
+## State: Power
+
+* StateNetworkName
+* StateMinerPower
+* StatePledgeCollateral
+
+---
+
+## State: Actors
+
+* StateListActors
+* StateGetActor
+* StateReadState
+* StateLookupID
+* StateMarketBalance
+
+---
+
+# State: Miners
+
+* StateListMiners
+* StateMinerProvingSet
+* StateMinerWorker
+* StateMinerPeerID
+* StateMinerPostState
+* StateMinerSectorCount
+* StateMinerFaults
+* StateSectorPreCommitInfo
+* StateListRewards
+
+---
+
+# State: Markets
+
+* StateMarketDeals
+* StateMarketStorageDeal
+
+---
+
+## State: Messages
+
+* StateListMessages
+* StateSearchMsg
+* StateWaitMsg
+* StateGetReceipt
+
+---
+
+# State: Other
+
+* StateCall
+* StateReplay
+* StateCompute
+
+---
+
 ## Syncing the Chain
 
 ---
