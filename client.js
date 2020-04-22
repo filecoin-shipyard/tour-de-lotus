@@ -1,6 +1,7 @@
 import LotusRPC from './lotus-client-rpc';
 import BrowserProvider from './lotus-client-provider-browser';
-import schema from '@filecoin-shipyard/lotus-client-schema/prototype/testnet-v3.js';
+// import schema from '@filecoin-shipyard/lotus-client-schema/prototype/testnet-v3.js';
+import schema from './lotus-client-schema';
 
 console.log('Jim starting client')
 const api = 'lotus.testground.ipfs.team/api'

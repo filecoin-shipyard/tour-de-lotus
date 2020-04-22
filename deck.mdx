@@ -125,6 +125,27 @@ Select a network:
 
 ---
 
+<TourContext.Consumer>
+  {tourContext => (
+    <LiveCode
+      title='State List Miners'
+      size='fullscreen'
+      code={require('!raw-loader!./state/list-miners.js')}
+      providerProps={{
+        scope: {
+          client,
+          useState,
+          useEffect,
+          tourContext,
+          slideIndex: 8
+        }
+      }}
+      editorProps={{ style: { fontSize: '0.4em', background: '#001628' } }}
+    />
+  )}
+</TourContext.Consumer>
+
+---
 ## Blocks
 
 ---

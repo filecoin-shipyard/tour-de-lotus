@@ -16,8 +16,8 @@
 
   return (
     <div>
-      <h2>Total Network Power</h2>
-      (Using StateMinerPower)
+      <h2>StateMinerPower</h2>
+      (Total Network Power)
       <h1>{totalPower} bytes</h1>
     </div>
   )
