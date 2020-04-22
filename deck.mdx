@@ -11,6 +11,7 @@ import { useState, useEffect, useRef } from 'react'
 import ReactJson from 'react-json-view'
 import { useImmer } from 'use-immer'
 import client from './client'
+import useMiners from './use-miners'
 
 <Head>
   <title>Tour de Lotus</title>
@@ -138,6 +139,29 @@ Select a network:
           useEffect,
           tourContext,
           slideIndex: 8
+        }
+      }}
+      editorProps={{ style: { fontSize: '0.4em', background: '#001628' } }}
+    />
+  )}
+</TourContext.Consumer>
+
+---
+
+<TourContext.Consumer>
+  {tourContext => (
+    <LiveCode
+      title='State List Miners + Power'
+      size='fullscreen'
+      code={require('!raw-loader!./state/power-miners.js')}
+      providerProps={{
+        scope: {
+          client,
+          useImmer,
+          useEffect,
+          useMiners,
+          tourContext,
+          slideIndex: 9
         }
       }}
       editorProps={{ style: { fontSize: '0.4em', background: '#001628' } }}
