@@ -183,6 +183,33 @@ Select a network:
 </TourContext.Consumer>
 
 ---
+
+Let's Make a Deal!
+
+---
+
+<TourContext.Consumer>
+  {tourContext => (
+    <LiveCode
+      title='Capture Media'
+      size='fullscreen'
+      code={require('!raw-loader!./deal/capture-media.js')}
+      providerProps={{
+        scope: {
+          client,
+          useState,
+          useEffect,
+          useRef,
+          tourContext,
+          slideIndex: 12
+        }
+      }}
+      editorProps={{ style: { fontSize: '0.4em', background: '#001628' } }}
+    />
+  )}
+</TourContext.Consumer>
+
+---
 ## Blocks
 
 ---
