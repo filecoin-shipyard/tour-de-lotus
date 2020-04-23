@@ -32,7 +32,7 @@ Select a network:
 
 <div>
   <input type='radio' name='net' value='localnet' defaultChecked={true} />
-  Localnet
+  Testground "Local Net"
 </div>
 <div>
   <input type='radio' name='net' value='simulated' />
@@ -184,174 +184,12 @@ Select a network:
 
 ---
 
-Let's Make a Deal!
+## Let's Make a Deal!
+
+Coming soon...
 
 ---
 
-<TourContext.Consumer>
-  {tourContext => (
-    <LiveCode
-      title='Capture Media'
-      size='fullscreen'
-      code={require('!raw-loader!./deal/capture-media.js')}
-      providerProps={{
-        scope: {
-          client,
-          useState,
-          useEffect,
-          useRef,
-          tourContext,
-          slideIndex: 12
-        }
-      }}
-      editorProps={{ style: { fontSize: '0.4em', background: '#001628' } }}
-    />
-  )}
-</TourContext.Consumer>
+## The End
 
----
-## Blocks
-
----
-
-## State: Power
-
-* StateNetworkName
-* StateMinerPower
-* StatePledgeCollateral
-
----
-
-## State: Actors
-
-* StateListActors
-* StateGetActor
-* StateReadState
-* StateLookupID
-* StateMarketBalance
-
----
-
-# State: Miners
-
-* StateListMiners
-* StateMinerProvingSet
-* StateMinerWorker
-* StateMinerPeerID
-* StateMinerPostState
-* StateMinerSectorCount
-* StateMinerFaults
-* StateSectorPreCommitInfo
-* StateListRewards
-
----
-
-# State: Markets
-
-* StateMarketDeals
-* StateMarketStorageDeal
-
----
-
-## State: Messages
-
-* StateListMessages
-* StateSearchMsg
-* StateWaitMsg
-* StateGetReceipt
-
----
-
-# State: Other
-
-* StateCall
-* StateReplay
-* StateCompute
-
----
-
-## Syncing the Chain
-
----
-
-## ChainHead JSON
-
----
-
-## Tipsets
-
----
-
-### State
-
----
-
-## Addresses
-
----
-
-## Messages
-
----
-
-## Signing
-
----
-
-## Message Pool
-
----
-
-## Nodes
-
----
-
-## Networking
-
----
-
-## Miners
-
----
-
-## Power
-
----
-
-## Block Rewards
-
----
-
-## Sectors
-
----
-
-## Proofs
-
----
-
-## Markets
-
----
-
-## Asks
-
----
-
-## Making Deals
-
----
-
-## Deal Status
-
----
-
-## Payment Channels
-
----
-
-## Proving
-
----
-
-## Actors
+filecoin-shipyard/tour-de-lotus
