@@ -13,6 +13,8 @@
         playsInline
         style={{ height: '50vh' }}
       ></video>
+      <canvas style={{display: 'none'}} />
+      <img style={{display: 'none'}} />
       {!opened && (
         <button
           onClick={open}
