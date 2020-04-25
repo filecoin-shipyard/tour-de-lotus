@@ -1,4 +1,4 @@
-({ tourContext }) => {
+({ tourState }) => {
   const videoRef = useRef()
   const canvasRef = useRef()
   const photoRef = useRef()
@@ -21,7 +21,7 @@
       style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
     >
       <h2>Capture</h2>
-        {tourContext.timer}
+        {tourState.timer}
     </div>
   )
 

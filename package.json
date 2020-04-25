@@ -12,6 +12,7 @@
 		"@filecoin-shipyard/lotus-client-provider-browser": "^0.0.3",
 		"@filecoin-shipyard/lotus-client-rpc": "^0.0.3",
 		"@filecoin-shipyard/lotus-client-schema": "^0.0.6",
+		"immer": "^6.0.3",
 		"mdx-deck-live-code": "^0.1.0",
 		"react": "^16.13.1",
 		"react-dom": "^16.13.1",
@@ -29,19 +30,15 @@
 	"browserslist": [
 		"last 1 Chrome version"
 	],
-  "author": "Jim Pick (@jimpick)",
-  "license": "(Apache-2.0 AND MIT)",
+	"author": "Jim Pick (@jimpick)",
+	"license": "(Apache-2.0 AND MIT)",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/filecoin-shipyard/tour-de-lotus.git"
+		"url": "git+https://github.com/filecoin-shipyard/tour-de-lotus.git"
 	},
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/filecoin-shipyard/tour-de-lotus.git"
-  },
-  "bugs": {
-    "url": "https://github.com/filecoin-shipyard/tour-de-lotus/issues"
-  },
-  "homepage": "https://github.com/filecoin-shipyard/tour-de-lotus#readme",
+	"bugs": {
+		"url": "https://github.com/filecoin-shipyard/tour-de-lotus/issues"
+	},
+	"homepage": "https://github.com/filecoin-shipyard/tour-de-lotus#readme",
 	"description": "A slideshow tour of Lotus using the Lotus JS Client"
 }

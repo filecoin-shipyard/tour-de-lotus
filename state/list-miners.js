@@ -1,9 +1,9 @@
-() => {
+({ tourState }) => {
   const [miners, setMiners] = useState()
 
   useEffect(() => {
     let state = { canceled: false }
-    if (tourContext.index !== slideIndex) return
+    if (tourState.index !== slideIndex) return
     ;(async function run () {
       if (state.canceled) return
       const result = await client.stateListMiners([])
@@ -11,7 +11,7 @@
       setMiners(result.sort())
     })()
     return () => { state.canceled = true }
-  }, [tourContext.index])
+  }, [tourState.index])
 
   let content
   if (!miners) {

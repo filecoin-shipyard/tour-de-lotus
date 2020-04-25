@@ -13,6 +13,7 @@ import { useImmer } from 'use-immer'
 import client from './client'
 import useMiners from './use-miners'
 import transformCode from './transform'
+import baseImports from './base-imports'
 
 <Head>
   <title>Tour de Lotus</title>
@@ -52,25 +53,22 @@ Select a network:
 
 ---
 
-<TourContext.Consumer>
-  {tourContext => (
-    <LiveCode
-      title='ChainHead Height'
-      size='fullscreen'
-      code={require('!raw-loader!./chain-head-height.js')}
-      providerProps={{
-        scope: {
-          client,
-          useState,
-          useEffect,
-          tourContext,
-          slideIndex: 4
-        }
-      }}
-      editorProps={{ style: { fontSize: '0.4em', background: '#001628' } }}
-    />
-  )}
-</TourContext.Consumer>
+<LiveCode
+  title='ChainHead Height'
+  size='fullscreen'
+  code={require('!raw-loader!./chain-head-height.js')}
+  providerProps={{
+    transformCode,
+    noInline: true,
+    scope: {
+      slideIndex: 4,
+      TourContext,
+      client,
+      ...baseImports
+    }
+  }}
+  editorProps={{ style: { fontSize: '0.4em', background: '#001628' } }}
+/>
 
 ---
 
@@ -79,10 +77,12 @@ Select a network:
   size='fullscreen'
   code={require('!raw-loader!./chain-head-result.js')}
   providerProps={{
+    transformCode,
+    noInline: true,
     scope: {
+      TourContext,
       client,
-      useState,
-      useEffect,
+      ...baseImports,
       ReactJson
     }
   }}
@@ -91,26 +91,22 @@ Select a network:
 
 ---
 
-<TourContext.Consumer>
-  {tourContext => (
-    <LiveCode
-      title='ChainNotify Blocks'
-      size='fullscreen'
-      code={require('!raw-loader!./chain-notify-blocks.js')}
-      providerProps={{
-        scope: {
-          client,
-          useEffect,
-          useRef,
-          useImmer,
-          tourContext,
-          slideIndex: 6
-        }
-      }}
-      editorProps={{ style: { fontSize: '0.4em', background: '#001628' } }}
-    />
-  )}
-</TourContext.Consumer>
+<LiveCode
+  title='ChainNotify Blocks'
+  size='fullscreen'
+  code={require('!raw-loader!./chain-notify-blocks.js')}
+  providerProps={{
+    transformCode,
+    noInline: true,
+    scope: {
+      slideIndex: 6,
+      TourContext,
+      client,
+      ...baseImports
+    }
+  }}
+  editorProps={{ style: { fontSize: '0.4em', background: '#001628' } }}
+/>
 
 ---
 
@@ -118,70 +114,61 @@ Select a network:
 
 ---
 
-<TourContext.Consumer>
-  {tourContext => (
-    <LiveCode
-      title='State Power All'
-      size='fullscreen'
-      code={require('!raw-loader!./state/power-all.js')}
-      providerProps={{
-        scope: {
-          client,
-          useState,
-          useEffect,
-          tourContext,
-          slideIndex: 8
-        }
-      }}
-      editorProps={{ style: { fontSize: '0.4em', background: '#001628' } }}
-    />
-  )}
-</TourContext.Consumer>
+<LiveCode
+  title='State Power All'
+  size='fullscreen'
+  code={require('!raw-loader!./state/power-all.js')}
+  providerProps={{
+    transformCode,
+    noInline: true,
+    scope: {
+      slideIndex: 8,
+      TourContext,
+      client,
+      ...baseImports
+    }
+  }}
+  editorProps={{ style: { fontSize: '0.4em', background: '#001628' } }}
+/>
 
 ---
 
-<TourContext.Consumer>
-  {tourContext => (
-    <LiveCode
-      title='State List Miners'
-      size='fullscreen'
-      code={require('!raw-loader!./state/list-miners.js')}
-      providerProps={{
-        scope: {
-          client,
-          useState,
-          useEffect,
-          tourContext,
-          slideIndex: 9
-        }
-      }}
-      editorProps={{ style: { fontSize: '0.4em', background: '#001628' } }}
-    />
-  )}
-</TourContext.Consumer>
+<LiveCode
+  title='State List Miners'
+  size='fullscreen'
+  code={require('!raw-loader!./state/list-miners.js')}
+  providerProps={{
+    transformCode,
+    noInline: true,
+    scope: {
+      slideIndex: 9,
+      TourContext,
+      client,
+      ...baseImports
+    }
+  }}
+  editorProps={{ style: { fontSize: '0.4em', background: '#001628' } }}
+/>
 
 ---
 
-<TourContext.Consumer>
-  {tourContext => (
-    <LiveCode
-      title='State List Miners + Power'
-      size='fullscreen'
-      code={require('!raw-loader!./state/power-miners.js')}
-      providerProps={{
-        scope: {
-          client,
-          useImmer,
-          useEffect,
-          useMiners,
-          tourContext,
-          slideIndex: 10
-        }
-      }}
-      editorProps={{ style: { fontSize: '0.4em', background: '#001628' } }}
-    />
-  )}
-</TourContext.Consumer>
+<LiveCode
+  title='State List Miners + Power'
+  size='fullscreen'
+  code={require('!raw-loader!./state/power-miners.js')}
+  providerProps={{
+    transformCode,
+    noInline: true,
+    scope: {
+      slideIndex: 10,
+      TourContext,
+      client,
+      ...baseImports,
+      useMiners
+    }
+  }}
+  editorProps={{ style: { fontSize: '0.4em', background: '#001628' } }}
+/>
 
 ---
 
@@ -197,13 +184,13 @@ Let's Make a Deal!
     transformCode,
     noInline: true,
     scope: {
+      slideIndex: 12,
+      TourContext,
       client,
       useState,
       useEffect,
       useRef,
-      useCallback,
-      slideIndex: 12,
-      TourContext
+      useCallback
     }
   }}
   editorProps={{ style: { fontSize: '0.4em', background: '#001628' } }}

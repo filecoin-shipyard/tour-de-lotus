@@ -1,10 +1,10 @@
-() => {
+({ tourState }) => {
   const miners = useMiners(client)
   const [minerPower, updateMinerPower] = useImmer({})
 
   useEffect(() => {
     let state = { canceled: false }
-    if (tourContext.index !== slideIndex) return
+    if (tourState.index !== slideIndex) return
     if (!miners) return
     ;(async function run () {
       if (state.canceled) return
@@ -20,7 +20,7 @@
       }
     })()
     return () => { state.canceled = true }
-  }, [tourContext.index, miners])
+  }, [tourState.index, miners])
 
   return (
     <div>

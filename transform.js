@@ -4,8 +4,8 @@ export default function (code) {
 
     render(
       <TourContext.Consumer>
-        {tourContext => (
-          <LiveCode tourContext={tourContext} />
+        {tourState => (
+          <LiveCode tourState={tourState} />
         )}
       </TourContext.Consumer>
     )

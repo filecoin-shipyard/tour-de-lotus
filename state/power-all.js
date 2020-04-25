@@ -1,9 +1,9 @@
-() => {
+({ tourState }) => {
   const [totalPower, setTotalPower] = useState()
 
   useEffect(() => {
     let state = { canceled: false }
-    if (tourContext.index !== slideIndex) return
+    if (tourState.index !== slideIndex) return
     setTotalPower('Loading...')
     ;(async function run () {
       if (state.canceled) return
@@ -12,7 +12,7 @@
       setTotalPower(result.TotalPower)
     })()
     return () => { state.canceled = true }
-  }, [tourContext.index])
+  }, [tourState.index])
 
   return (
     <div>

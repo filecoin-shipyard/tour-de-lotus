@@ -1,9 +1,9 @@
-() => {
+({ tourState }) => {
   const [rounds, updateRounds] = useImmer([])
   const lastEl = useRef(null)
 
   useEffect(() => {
-    if (!client || tourContext.index !== slideIndex) return
+    if (!client || tourState.index !== slideIndex) return
     const [cancelFunc, promise] = client.chainNotify(changes => {
       for (const change of changes) {
         const { Type: changeType, Val: val } = change
@@ -21,7 +21,7 @@
     })
     promise.catch(err => { console.error(err) })
     return cancelFunc
-  }, [client, tourContext.index])
+  }, [client, tourState.index])
 
   useEffect(() => {
     if (lastEl && lastEl.current) {
