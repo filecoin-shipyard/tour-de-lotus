@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from 'react'
+import React, { useEffect, useReducer, useState } from 'react'
 import { yellow as theme } from 'mdx-deck/themes'
 import Provider from 'mdx-deck/dist/Provider'
 import { useImmer } from 'use-immer'
@@ -11,6 +11,7 @@ const globalState = {}
 function CustomProvider (props) {
   const [tourContext, updateTourContext] = useImmer({ state: {} })
   const [tourState, tourDispatch] = useReducer(reducer, initialState)
+  const [timer, setTimer] = useState()
   const { index } = props
 
   globalState.tourState = tourState
@@ -20,8 +21,18 @@ function CustomProvider (props) {
       draft.index = index
       draft.state = globalState
       draft.tourDispatch = tourDispatch
+      draft.timer = timer
     })
-  }, [index, tourState])
+  }, [index, tourState, timer])
+
+  useEffect(() => {
+    function tick () {
+      setTimer(Date.now())
+      setTimeout(tick, 1000)
+    }
+    tick()
+  }, [])
+
   console.log('Jim tourContext', tourContext)
 
   return (

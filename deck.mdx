@@ -12,6 +12,7 @@ import ReactJson from 'react-json-view'
 import { useImmer } from 'use-immer'
 import client from './client'
 import useMiners from './use-miners'
+import transformCode from './transform'
 
 <Head>
   <title>Tour de Lotus</title>
@@ -188,29 +189,25 @@ Let's Make a Deal!
 
 ---
 
-<TourContext.Consumer>
-  {tourContext => (
-    <LiveCode
-      title='Capture Media'
-      size='fullscreen'
-      code={require('!raw-loader!./deal/capture-media.js')}
-      providerProps={{
-        scope: {
-          client,
-          useState,
-          useEffect,
-          useRef,
-          useCallback,
-          tourContext,
-          slideIndex: 12,
-          tourState: tourContext.state.tourState,
-          tourDispatch: tourContext.tourDispatch
-        }
-      }}
-      editorProps={{ style: { fontSize: '0.4em', background: '#001628' } }}
-    />
-  )}
-</TourContext.Consumer>
+<LiveCode
+  title='Capture Media'
+  size='fullscreen'
+  code={require('!raw-loader!./deal/capture-media.js')}
+  providerProps={{
+    transformCode,
+    noInline: true,
+    scope: {
+      client,
+      useState,
+      useEffect,
+      useRef,
+      useCallback,
+      slideIndex: 12,
+      TourContext
+    }
+  }}
+  editorProps={{ style: { fontSize: '0.4em', background: '#001628' } }}
+/>
 
 ---
 ## Blocks
