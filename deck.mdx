@@ -7,7 +7,7 @@ import { LiveCode } from 'mdx-deck-live-code'
 // import BrowserProvider from '@filecoin-shipyard/lotus-client-provider-browser';
 // import BrowserProvider from './lotus-client-provider-browser';
 // import schema from '@filecoin-shipyard/lotus-client-schema/prototype/testnet-v3.js';
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import ReactJson from 'react-json-view'
 import { useImmer } from 'use-immer'
 import client from './client'
@@ -52,7 +52,7 @@ Select a network:
 ---
 
 <TourContext.Consumer>
-  {({ tourContext }) => (
+  {tourContext => (
     <LiveCode
       title='ChainHead Height'
       size='fullscreen'
@@ -91,7 +91,7 @@ Select a network:
 ---
 
 <TourContext.Consumer>
-  {({ tourContext }) => (
+  {tourContext => (
     <LiveCode
       title='ChainNotify Blocks'
       size='fullscreen'
@@ -118,7 +118,7 @@ Select a network:
 ---
 
 <TourContext.Consumer>
-  {({ tourContext }) => (
+  {tourContext => (
     <LiveCode
       title='State Power All'
       size='fullscreen'
@@ -140,7 +140,7 @@ Select a network:
 ---
 
 <TourContext.Consumer>
-  {({ tourContext }) => (
+  {tourContext => (
     <LiveCode
       title='State List Miners'
       size='fullscreen'
@@ -162,7 +162,7 @@ Select a network:
 ---
 
 <TourContext.Consumer>
-  {({ tourContext }) => (
+  {tourContext => (
     <LiveCode
       title='State List Miners + Power'
       size='fullscreen'
@@ -189,7 +189,7 @@ Let's Make a Deal!
 ---
 
 <TourContext.Consumer>
-  {({ tourContext, tourState, tourDispatch }) => (
+  {tourContext => (
     <LiveCode
       title='Capture Media'
       size='fullscreen'
@@ -200,10 +200,11 @@ Let's Make a Deal!
           useState,
           useEffect,
           useRef,
+          useCallback,
           tourContext,
-          tourState,
-          tourDispatch,
-          slideIndex: 12
+          slideIndex: 12,
+          tourState: tourContext.state.tourState,
+          tourDispatch: tourContext.tourDispatch
         }
       }}
       editorProps={{ style: { fontSize: '0.4em', background: '#001628' } }}

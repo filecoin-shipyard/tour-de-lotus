@@ -7,15 +7,24 @@
   const [objectUrlAttribute, setObjectUrlAttribute] = useState()
   const width = 100
 
-  useEffect(() => {
-    console.log('Jim videoRef.current 1', videoRef)
+  const canPlay = useCallback(ev => {
     const video = videoRef.current
-    video.addEventListener('canplay', ev => {
-      console.log('canplay', ev, video.videoWidth, video.videoHeight)
-      const height = video.videoHeight / (video.videoWidth / width)
-      setHeight(height)
-    })
-  }, [videoRef.current])
+    console.log('canplay', ev, video.videoWidth, video.videoHeight)
+    const height = video.videoHeight / (video.videoWidth / width)
+    setHeight(height)
+  }, [])
+
+  const wrappedVideoRef = useCallback(node => {
+    console.log('Jim wrappedVideoRef', node)
+    if (videoRef.current) {
+      videoRef.current.removeEventListener('canplay', canPlay)
+      videoRef.current = null
+    }
+    if (node) {
+      videoRef.current = node
+      node.addEventListener('canplay', canPlay)
+    }
+  }, [])
 
   useEffect(() => {
     console.log('Jim tourState.capture 1', tourState)
@@ -27,9 +36,9 @@
         URL.revokeObjectURL(objectUrl)
       }
     }
-  }, [tourState.capture])
+  }, [tourContext])
 
-  console.log('Jim render')
+  console.log('Jim render capture')
 
   return (
     <div
@@ -37,22 +46,22 @@
     >
       <h2>Capture</h2>
       <video
-        ref={videoRef}
+        ref={wrappedVideoRef}
         autoPlay
         playsInline
-        style={{ height: '30vh' }}
+        style={{ height: '15vh' }}
         width={width}
         height={height}
       ></video>
       <canvas
         ref={canvasRef}
-        style={{ display: 'block', border: '1px solid green', height: '30vh' }}
+        style={{ display: 'block', border: '1px solid green', height: '15vh' }}
         width={width}
         height={height}
       />
       <img
         ref={photoRef}
-        style={{ display: 'none', border: '1px solid red', height: '30vh' }}
+        style={{ display: 'block', border: '1px solid red', height: '15vh' }}
         {...objectUrlAttribute}
       />
       {!opened && (

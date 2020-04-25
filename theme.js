@@ -6,17 +6,26 @@ import reducer, { initialState } from './reducer'
 
 export const TourContext = React.createContext()
 
+const globalState = {}
+
 function CustomProvider (props) {
-  const [tourContext, updateTourContext] = useImmer({})
+  const [tourContext, updateTourContext] = useImmer({ state: {} })
   const [tourState, tourDispatch] = useReducer(reducer, initialState)
   const { index } = props
 
+  globalState.tourState = tourState
+
   useEffect(() => {
-    updateTourContext(draft => { draft.index = index })
-  }, [index])
+    updateTourContext(draft => {
+      draft.index = index
+      draft.state = globalState
+      draft.tourDispatch = tourDispatch
+    })
+  }, [index, tourState])
+  console.log('Jim tourContext', tourContext)
 
   return (
-    <TourContext.Provider value={{tourContext, tourState, tourDispatch}}>
+    <TourContext.Provider value={tourContext}>
       <Provider {...props} />
     </TourContext.Provider>
   )
