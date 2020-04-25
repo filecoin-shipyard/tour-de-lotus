@@ -4,9 +4,7 @@ export default function (code) {
 
     render(
       <TourContext.Consumer>
-        {tourState => (
-          <LiveCode tourState={tourState} />
-        )}
+        {props => <LiveCode {...props} />}
       </TourContext.Consumer>
     )
   `

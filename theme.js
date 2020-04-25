@@ -22,7 +22,7 @@ function CustomProvider (props) {
   }, [])
 
   return (
-    <TourContext.Provider value={tourState}>
+    <TourContext.Provider value={{tourState, tourDispatch}}>
       <Provider {...props} />
     </TourContext.Provider>
   )
