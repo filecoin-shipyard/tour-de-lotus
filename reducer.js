@@ -16,6 +16,10 @@ export default function reducer (state, action) {
       return produce(state, draft => {
         draft.timer = action.timer
       })
+    case 'setStream':
+      return produce(state, draft => {
+        draft.stream = action.stream
+      })
     default:
       throw new Error()
   }

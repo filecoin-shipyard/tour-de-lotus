@@ -6,8 +6,17 @@
   const [height, setHeight] = useState(75)
   const [objectUrlAttribute, setObjectUrlAttribute] = useState()
   const width = 100
+  const stream = tourState.stream
+
+  useEffect(() => {
+    console.log('Jim1 started')
+    return () => {
+      console.trace('Jim1 ended')
+    }
+  }, [])
 
   const canPlay = useCallback(ev => {
+    console.log('Jim canPlay 1')
     const video = videoRef.current
     console.log('canplay', ev, video.videoWidth, video.videoHeight)
     const height = video.videoHeight / (video.videoWidth / width)
@@ -26,6 +35,7 @@
   }, [])
 
   useEffect(() => {
+    console.log('Jim tourState.capture 1')
     if (tourState.capture && tourState.capture.blob) {
       const objectUrl = URL.createObjectURL(tourState.capture.blob)
       setObjectUrlAttribute({ src: objectUrl })
@@ -35,6 +45,20 @@
       }
     }
   }, [tourState.capture])
+
+  useEffect(() => {
+    function checkClose () {
+      console.log('Jim check close webcam', tourState.index, slideIndex, opened, stream)
+      if (stream && tourState.index !== slideIndex) {
+        console.log('Jim close webcam')
+        stream.getTracks().forEach(track => track.stop())
+        tourDispatch({ type: 'setStream', stream: null })
+        setOpened(false)
+      }
+    }
+    checkClose()
+    return checkClose
+  }, [tourState.index, opened, stream])
 
   let sizePanel
   if (tourState.capture && tourState.capture.blob) {
@@ -53,15 +77,16 @@
         justifyContent: 'space-around'
       }}
     >
-      <h2>Capture</h2>
+      <h2 style={{marginBottom: '1rem'}}>Capture</h2>
+      <div style={{ border: '1px solid green', height: height + 2 }}>
       <video
         ref={wrappedVideoRef}
         autoPlay
         playsInline
-        style={{ border: '1px solid green' }}
         width={width}
         height={height}
       ></video>
+      </div>
       <canvas
         ref={canvasRef}
         style={{ display: 'none', border: '1px solid blue', height: '30vh' }}
@@ -71,7 +96,7 @@
       {!opened && (
         <button
           onClick={open}
-          style={{ width: '20vw', height: '10vh', fontSize: 'large' }}
+          style={{ width: '10rem', minHeight: '2rem', fontSize: 'large', margin: '1rem' }}
         >
           Open camera
         </button>
@@ -79,7 +104,7 @@
       {opened && (
         <button
           onClick={capture}
-          style={{ width: '20vw', height: '10vh', fontSize: 'large' }}
+          style={{ width: '10rem', minHeight: '2rem', fontSize: 'large', margin: '1rem' }}
         >
           Take Picture
         </button>
@@ -106,6 +131,7 @@
     console.log('Got stream with constraints:', constraints)
     console.log(`Using video device: ${videoTracks[0].label}`)
     videoRef.current.srcObject = stream
+    tourDispatch({ type: 'setStream', stream })
     setOpened(true)
   }
 
@@ -130,10 +156,6 @@
       const blob = await promise
       if (blob.size <= maxSize) {
         console.log('Found:', quality, blob)
-        /*
-        const objectURL = URL.createObjectURL(blob)
-        photoRef.current.setAttribute('src', objectURL)
-        */
         tourDispatch({
           type: 'setCapture',
           capture: {
