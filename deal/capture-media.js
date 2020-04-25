@@ -3,7 +3,7 @@
   const canvasRef = useRef()
   const photoRef = useRef()
   const [opened, setOpened] = useState()
-  const [height, setHeight] = useState(100)
+  const [height, setHeight] = useState(75)
   const [objectUrlAttribute, setObjectUrlAttribute] = useState()
   const width = 100
 
@@ -15,7 +15,6 @@
   }, [])
 
   const wrappedVideoRef = useCallback(node => {
-    console.log('Jim wrappedVideoRef', node)
     if (videoRef.current) {
       videoRef.current.removeEventListener('canplay', canPlay)
       videoRef.current = null
@@ -27,45 +26,47 @@
   }, [])
 
   useEffect(() => {
-    console.log('Jim tourState.capture 1', tourState)
     if (tourState.capture && tourState.capture.blob) {
       const objectUrl = URL.createObjectURL(tourState.capture.blob)
-      setObjectUrlAttribute({src: objectUrl})
+      setObjectUrlAttribute({ src: objectUrl })
       return () => {
         setObjectUrlAttribute(null)
         URL.revokeObjectURL(objectUrl)
       }
     }
-  }, [tourState])
+  }, [tourState.capture])
 
-  console.log('Jim render capture')
+  let sizePanel
+  if (tourState.capture && tourState.capture.blob) {
+    sizePanel = <span>{tourState.capture.blob.size} bytes</span>
+  } else {
+    sizePanel = <span>No picture taken yet</span>
+  }
 
   return (
     <div
-      style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        height: '90vh',
+        justifyContent: 'space-around'
+      }}
     >
       <h2>Capture</h2>
-      <div>
-        {tourState.timer}
-      </div>
       <video
         ref={wrappedVideoRef}
         autoPlay
         playsInline
-        style={{ height: '15vh' }}
+        style={{ border: '1px solid green' }}
         width={width}
         height={height}
       ></video>
       <canvas
         ref={canvasRef}
-        style={{ display: 'block', border: '1px solid green', height: '15vh' }}
+        style={{ display: 'none', border: '1px solid blue', height: '30vh' }}
         width={width}
         height={height}
-      />
-      <img
-        ref={photoRef}
-        style={{ display: 'block', border: '1px solid red', height: '15vh' }}
-        {...objectUrlAttribute}
       />
       {!opened && (
         <button
@@ -75,7 +76,23 @@
           Open camera
         </button>
       )}
-      {opened && <button onClick={capture}>Take Picture</button>}
+      {opened && (
+        <button
+          onClick={capture}
+          style={{ width: '20vw', height: '10vh', fontSize: 'large' }}
+        >
+          Take Picture
+        </button>
+      )}
+      <div style={{ border: '1px solid black', height: height + 2 }}>
+        <img
+          ref={photoRef}
+          width={width}
+          height={height}
+          {...objectUrlAttribute}
+        />
+      </div>
+      <div>{sizePanel}</div>
     </div>
   )
 
@@ -101,10 +118,14 @@
     for (quality = 0.95; quality > 0; quality -= 0.05) {
       console.log('Quality', quality)
       const promise = new Promise((resolve, reject) => {
-        canvasRef.current.toBlob(blob => {
-          console.log('Blob', quality, blob)
-          resolve(blob)
-        }, 'image/jpeg', quality)
+        canvasRef.current.toBlob(
+          blob => {
+            console.log('Blob', quality, blob)
+            resolve(blob)
+          },
+          'image/jpeg',
+          quality
+        )
       })
       const blob = await promise
       if (blob.size <= maxSize) {
@@ -113,10 +134,13 @@
         const objectURL = URL.createObjectURL(blob)
         photoRef.current.setAttribute('src', objectURL)
         */
-        tourDispatch({ type: 'setCapture', capture: {
-          quality,
-          blob
-        }})
+        tourDispatch({
+          type: 'setCapture',
+          capture: {
+            quality,
+            blob
+          }
+        })
         break
       }
     }
