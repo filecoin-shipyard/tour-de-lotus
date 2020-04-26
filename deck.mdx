@@ -10,7 +10,8 @@ import { LiveCode } from 'mdx-deck-live-code'
 import { useState, useEffect, useRef, useCallback } from 'react'
 import ReactJson from 'react-json-view'
 import { useImmer } from 'use-immer'
-import client from './client'
+import clientNode from './client-node'
+import clientMiner from './client-miner'
 import useMiners from './use-miners'
 import transformCode from './transform'
 import baseImports from './base-imports'
@@ -63,7 +64,7 @@ Select a network:
     scope: {
       slideIndex: 4,
       TourContext,
-      client,
+      client: clientNode,
       ...baseImports
     }
   }}
@@ -72,22 +73,31 @@ Select a network:
 
 ---
 
+## Miners
+
+On this network, each Node also has an associated Miner.
+
+Which one is ours?
+
+---
+
 <LiveCode
-  title='ChainHead Result'
+  title='Miner Actor Address'
   size='fullscreen'
-  code={require('!raw-loader!./chain-head-result.js')}
+  code={require('!raw-loader!./miner/actor-address.js')}
   providerProps={{
     transformCode,
     noInline: true,
     scope: {
+      slideIndex: 6,
       TourContext,
-      client,
-      ...baseImports,
-      ReactJson
+      client: clientMiner,
+      ...baseImports
     }
   }}
   editorProps={{ style: { fontSize: '0.4em', background: '#001628' } }}
 />
+
 
 ---
 
@@ -99,9 +109,9 @@ Select a network:
     transformCode,
     noInline: true,
     scope: {
-      slideIndex: 6,
+      slideIndex: 7,
       TourContext,
-      client,
+      client: clientNode,
       ...baseImports
     }
   }}
@@ -122,9 +132,9 @@ Select a network:
     transformCode,
     noInline: true,
     scope: {
-      slideIndex: 8,
+      slideIndex: 9,
       TourContext,
-      client,
+      client: clientNode,
       ...baseImports
     }
   }}
@@ -141,9 +151,9 @@ Select a network:
     transformCode,
     noInline: true,
     scope: {
-      slideIndex: 9,
+      slideIndex: 10,
       TourContext,
-      client,
+      client: clientNode,
       ...baseImports
     }
   }}
@@ -160,9 +170,9 @@ Select a network:
     transformCode,
     noInline: true,
     scope: {
-      slideIndex: 10,
+      slideIndex: 11,
       TourContext,
-      client,
+      client: clientNode,
       ...baseImports,
       useMiners
     }
@@ -184,13 +194,27 @@ Let's Make a Deal!
     transformCode,
     noInline: true,
     scope: {
-      slideIndex: 12,
+      slideIndex: 13,
       TourContext,
-      client,
-      useState,
-      useEffect,
-      useRef,
-      useCallback
+      ...baseImports
+    }
+  }}
+  editorProps={{ style: { fontSize: '0.4em', background: '#001628' } }}
+/>
+
+---
+
+<LiveCode
+  title='Import'
+  size='fullscreen'
+  code={require('!raw-loader!./deal/import.js')}
+  providerProps={{
+    transformCode,
+    noInline: true,
+    scope: {
+      slideIndex: 14,
+      TourContext,
+      ...baseImports
     }
   }}
   editorProps={{ style: { fontSize: '0.4em', background: '#001628' } }}
@@ -342,3 +366,24 @@ Let's Make a Deal!
 ---
 
 ## Actors
+
+---
+
+<LiveCode
+  title='ChainHead Result'
+  size='fullscreen'
+  code={require('!raw-loader!./chain-head-result.js')}
+  providerProps={{
+    transformCode,
+    noInline: true,
+    scope: {
+      TourContext,
+      client: clientNode,
+      ...baseImports,
+      ReactJson
+    }
+  }}
+  editorProps={{ style: { fontSize: '0.4em', background: '#001628' } }}
+/>
+
+---

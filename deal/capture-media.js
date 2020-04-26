@@ -8,15 +8,7 @@
   const width = 100
   const stream = tourState.stream
 
-  useEffect(() => {
-    console.log('Jim1 started')
-    return () => {
-      console.trace('Jim1 ended')
-    }
-  }, [])
-
   const canPlay = useCallback(ev => {
-    console.log('Jim canPlay 1')
     const video = videoRef.current
     console.log('canplay', ev, video.videoWidth, video.videoHeight)
     const height = video.videoHeight / (video.videoWidth / width)
@@ -35,7 +27,6 @@
   }, [])
 
   useEffect(() => {
-    console.log('Jim tourState.capture 1')
     if (tourState.capture && tourState.capture.blob) {
       const objectUrl = URL.createObjectURL(tourState.capture.blob)
       setObjectUrlAttribute({ src: objectUrl })
@@ -48,9 +39,7 @@
 
   useEffect(() => {
     function checkClose () {
-      console.log('Jim check close webcam', tourState.index, slideIndex, opened, stream)
       if (stream && tourState.index !== slideIndex) {
-        console.log('Jim close webcam')
         stream.getTracks().forEach(track => track.stop())
         tourDispatch({ type: 'setStream', stream: null })
         setOpened(false)
@@ -136,13 +125,11 @@
   }
 
   async function capture () {
-    console.log('Capture!')
     var context = canvasRef.current.getContext('2d')
     context.drawImage(videoRef.current, 0, 0, width, height)
     const maxSize = 2000
     let quality
     for (quality = 0.95; quality > 0; quality -= 0.05) {
-      console.log('Quality', quality)
       const promise = new Promise((resolve, reject) => {
         canvasRef.current.toBlob(
           blob => {
@@ -155,12 +142,13 @@
       })
       const blob = await promise
       if (blob.size <= maxSize) {
-        console.log('Found:', quality, blob)
         tourDispatch({
           type: 'setCapture',
           capture: {
             quality,
-            blob
+            blob,
+            width,
+            height
           }
         })
         break
