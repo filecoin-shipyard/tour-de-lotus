@@ -25,6 +25,14 @@ export default function reducer (state, action) {
       return produce(state, draft => {
         draft.cid = action.cid
       })
+    case 'setTargetMiner':
+      return produce(state, draft => {
+        draft.targetMiner = action.targetMiner
+      })
+    case 'setDefaultWalletAddress':
+      return produce(state, draft => {
+        draft.defaultWalletAddress = action.defaultWalletAddress
+      })
     default:
       throw new Error()
   }

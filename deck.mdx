@@ -13,6 +13,7 @@ import { useImmer } from 'use-immer'
 import clientNode from './client-node'
 import clientMiner from './client-miner'
 import useMiners from './use-miners'
+import useActorAddress from './use-actor-address'
 import transformCode from './transform'
 import baseImports from './base-imports'
 
@@ -220,6 +221,48 @@ Let's Make a Deal!
   }}
   editorProps={{ style: { fontSize: '0.4em', background: '#001628' } }}
 />
+
+---
+
+<LiveCode
+  title='List Miners for Deals'
+  size='fullscreen'
+  code={require('!raw-loader!./deal/miners.js')}
+  providerProps={{
+    transformCode,
+    noInline: true,
+    scope: {
+      slideIndex: 15,
+      TourContext,
+      clientNode,
+      clientMiner,
+      ...baseImports,
+      useMiners,
+      useActorAddress
+    }
+  }}
+  editorProps={{ style: { fontSize: '0.4em', background: '#001628' } }}
+/>
+
+---
+
+<LiveCode
+  title='Default Wallet and Balance'
+  size='fullscreen'
+  code={require('!raw-loader!./deal/default-wallet-and-balance.js')}
+  providerProps={{
+    transformCode,
+    noInline: true,
+    scope: {
+      slideIndex: 16,
+      TourContext,
+      client: clientNode,
+      ...baseImports
+    }
+  }}
+  editorProps={{ style: { fontSize: '0.4em', background: '#001628' } }}
+/>
+
 
 ---
 ## Blocks
