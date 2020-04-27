@@ -20,7 +20,12 @@
     width = tourState.capture.width
     height = tourState.capture.height
   } else {
-    sizePanel = <span>No picture taken yet</span>
+    return (
+      <div>
+        <h2>Import</h2>
+        No picture taken yet
+      </div>
+    )
   }
 
   return (
@@ -42,6 +47,12 @@
         />
       </div>
       <div>{sizePanel}</div>
+      <button
+        onClick={() => alert('Import!')}
+        style={{ width: '10rem', minHeight: '2rem', fontSize: 'large', margin: '1rem' }}
+      >
+        Import
+      </button>
     </div>
   )
 }
