@@ -6,26 +6,44 @@ class BrowserProvider {
     this.inflight = new Map()
     this.cancelled = new Map()
     this.subscriptions = new Map()
-    this.token = options.token
-    if (this.token && this.token !== '') {
-      this.url += `?token=${this.token}`
+    if (typeof options.token === 'function') {
+      this.tokenCallback = options.token
+    } else {
+      this.token = options.token
+      if (this.token && this.token !== '') {
+        this.url += `?token=${this.token}`
+      }
     }
   }
 
   connect () {
     if (!this.connectPromise) {
-      this.connectPromise = new Promise((resolve, reject) => {
-        this.ws = new WebSocket(this.url)
-        // FIXME: reject on error or timeout
-        this.ws.onopen = function () {
-          resolve()
+      const getConnectPromise = () => {
+        return new Promise((resolve, reject) => {
+          this.ws = new WebSocket(this.url)
+          // FIXME: reject on error or timeout
+          this.ws.onopen = function () {
+            resolve()
+          }
+          this.ws.onerror = function () {
+            console.error('ws error')
+            reject()
+          }
+          this.ws.onmessage = this.receive.bind(this)
+        })
+      }
+      if (this.tokenCallback) {
+        const getToken = async () => {
+          this.token = await this.tokenCallback()
+          delete this.tokenCallback
+          if (this.token && this.token !== '') {
+            this.url += `?token=${this.token}`
+          }
         }
-        this.ws.onerror = function () {
-          console.error('ws error')
-          reject()
-        }
-        this.ws.onmessage = this.receive.bind(this)
-      })
+        this.connectPromise = getToken().then(() => getConnectPromise())
+      } else {
+        this.connectPromise = getConnectPromise()
+      }
     }
     return this.connectPromise
   }
