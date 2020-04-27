@@ -1,7 +1,9 @@
 class BrowserProvider {
   constructor (url, options = {}) {
     this.url = url
-    this.httpUrl = url.replace(/^wss:/, 'https:')
+    this.httpUrl = options.httpUrl || url.replace(/^wss:/, 'https:')
+    this.importUrl =
+      options.importUrl || this.httpUrl.replace(/\/rpc\//, '/rest/') + '/import'
     this.id = 0
     this.inflight = new Map()
     this.cancelled = new Map()
@@ -192,6 +194,24 @@ class BrowserProvider {
     } catch (e) {
       console.error('RPC receive error', e)
     }
+  }
+
+  async import (body) {
+    const headers = {
+      'Content-Type': body.type,
+      Accept: '*/*',
+      Authorization: `Bearer ${this.token}`
+    }
+    const response = await fetch(this.importUrl, {
+      method: 'PUT',
+      headers,
+      body
+    })
+    // FIXME: Check return code, errors
+    const result = await response.json()
+    const { Cid: { "/": cid }} = result
+
+    return cid
   }
 
   async destroy () {

@@ -1,5 +1,6 @@
 ({ tourState, tourDispatch }) => {
   const [objectUrlAttribute, setObjectUrlAttribute] = useState()
+  const cid = tourState.cid
   let width = 100
   let height = 75
 
@@ -28,6 +29,30 @@
     )
   }
 
+  let buttonOrCid
+  if (cid) {
+    buttonOrCid = <div style={{ fontSize: 'small' }}>CID: {cid}</div>
+  } else {
+    buttonOrCid = (
+      <button
+        onClick={doImport}
+        style={{
+          width: '10rem',
+          minHeight: '2rem',
+          fontSize: 'large',
+          margin: '1rem'
+        }}
+      >
+        Import
+      </button>
+    )
+
+    async function doImport () {
+      const cid = await client.import(tourState.capture.blob)
+      console.log('Imported', cid)
+      tourDispatch({ type: 'setCid', cid })
+    }
+  }
   return (
     <div
       style={{
@@ -38,21 +63,12 @@
         justifyContent: 'space-around'
       }}
     >
-      <h2 style={{marginBottom: '1rem'}}>Import</h2>
+      <h2 style={{ marginBottom: '1rem' }}>Import</h2>
       <div style={{ border: '1px solid black', height: height + 2 }}>
-        <img
-          width={width}
-          height={height}
-          {...objectUrlAttribute}
-        />
+        <img width={width} height={height} {...objectUrlAttribute} />
       </div>
       <div>{sizePanel}</div>
-      <button
-        onClick={() => alert('Import!')}
-        style={{ width: '10rem', minHeight: '2rem', fontSize: 'large', margin: '1rem' }}
-      >
-        Import
-      </button>
+      {buttonOrCid}
     </div>
   )
 }

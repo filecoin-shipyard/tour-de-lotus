@@ -43,6 +43,10 @@ class LotusClientRPC {
     return this.provider.sendSubscription(request, schemaMethod, cb)
   }
 
+  async import (body) {
+    return this.provider.import(body)
+  }
+
   async destroy () {
     await this.provider.destroy()
   }

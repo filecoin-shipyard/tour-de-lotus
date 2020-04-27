@@ -11,6 +11,7 @@ export default function reducer (state, action) {
     case 'setCapture':
       return produce(state, draft => {
         draft.capture = action.capture
+        delete draft.cid
       })
     case 'setTimer':
       return produce(state, draft => {
@@ -19,6 +20,10 @@ export default function reducer (state, action) {
     case 'setStream':
       return produce(state, draft => {
         draft.stream = action.stream
+      })
+    case 'setCid':
+      return produce(state, draft => {
+        draft.cid = action.cid
       })
     default:
       throw new Error()
