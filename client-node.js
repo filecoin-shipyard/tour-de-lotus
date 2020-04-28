@@ -4,7 +4,7 @@ import BrowserProvider from './lotus-client-provider-browser';
 import schema from './lotus-client-schema';
 
 const api = 'lotus.testground.ipfs.team/api'
-const nodeNum = 1
+const nodeNum = 0
 const wsUrl = `wss://${api}/${nodeNum}/node/rpc/v0`
 const provider = new BrowserProvider(wsUrl, {
   token: async () => {

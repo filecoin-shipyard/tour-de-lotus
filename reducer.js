@@ -33,6 +33,10 @@ export default function reducer (state, action) {
       return produce(state, draft => {
         draft.defaultWalletAddress = action.defaultWalletAddress
       })
+    case 'setProposalCid':
+      return produce(state, draft => {
+        draft.proposalCid = action.proposalCid
+      })
     default:
       throw new Error()
   }

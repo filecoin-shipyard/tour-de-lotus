@@ -1,11 +1,13 @@
 ({ tourState, tourDispatch }) => {
+  const [status, setStatus] = useState()
   const cid = tourState.cid
   const targetMiner = tourState.targetMiner
   const defaultWalletAddress = tourState.defaultWalletAddress
+  const epochPrice = '2500'
 
   return (
     <div>
-      <h3 style={{ marginBottom: '0.5rem' }}>Propose Deal</h3>
+      <h3 style={{ margin: '0.5rem' }}>Propose Deal</h3>
       <h5 style={{ marginBottom: 0, marginTop: '0.2rem' }}>CID</h5>
       <div style={{ fontSize: 'small' }}>
         {cid ? cid : <span style={{ color: 'red' }}>Missing</span>}
@@ -29,7 +31,7 @@
       <h5 style={{ marginBottom: 0, marginTop: '0.2rem' }}>Duration</h5>
       <div style={{ fontSize: 'small' }}>100 blocks (10 minutes)</div>
       <h5 style={{ marginBottom: 0, marginTop: '0.2rem' }}>Epoch Price</h5>
-      <div style={{ fontSize: 'small' }}>500</div>
+      <div style={{ fontSize: 'small' }}>{epochPrice}</div>
       <button
         onClick={proposeDeal}
         style={{
@@ -41,6 +43,9 @@
       >
         Propose Deal
       </button>
+      <div style={{ fontSize: 'small' }}>
+        {status}
+      </div>
     </div>
   )
 
@@ -49,7 +54,30 @@
     tourDispatch({ type: 'setTargetMiner', targetMiner })
   }
 
-  function proposeDeal () {
-    alert('Propose!')
+  async function proposeDeal () {
+    const dataRef = {
+      Data: {
+        TransferType: 'graphsync',
+        Root: {
+          '/': cid
+        },
+        PieceCid: null,
+        PieceSize: 0
+      },
+      Wallet: defaultWalletAddress,
+      Miner: targetMiner,
+      EpochPrice: epochPrice,
+      BlocksDuration: 100
+    }
+    setStatus('Proposing...')
+    try {
+      const result = await client.clientStartDeal(dataRef)
+      const { "/": proposalCid } = result
+      setStatus('Proposed: ' + proposalCid)
+      tourDispatch({ type: 'setProposalCid', proposalCid })
+    } catch (e) {
+      setStatus('Error: ' + e.message)
+      console.log('Exception', e)
+    }
   }
 }
