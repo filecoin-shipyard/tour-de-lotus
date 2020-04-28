@@ -169,6 +169,7 @@
         width,
         height
       }
+      delete draft.cid
     })
   }
 }
