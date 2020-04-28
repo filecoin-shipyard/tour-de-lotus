@@ -1,4 +1,4 @@
-({ tourState, tourDispatch }) => {
+({ tourState, updateTourState }) => {
   const videoRef = useRef()
   const canvasRef = useRef()
   const photoRef = useRef()
@@ -41,7 +41,9 @@
     function checkClose () {
       if (stream && tourState.index !== slideIndex) {
         stream.getTracks().forEach(track => track.stop())
-        tourDispatch({ type: 'setStream', stream: null })
+        updateTourState(draft => {
+          draft.stream = null
+        })
         setOpened(false)
       }
     }
@@ -66,15 +68,15 @@
         justifyContent: 'space-around'
       }}
     >
-      <h2 style={{marginBottom: '1rem'}}>Capture</h2>
+      <h2 style={{ marginBottom: '1rem' }}>Capture</h2>
       <div style={{ border: '1px solid green', height: height + 2 }}>
-      <video
-        ref={wrappedVideoRef}
-        autoPlay
-        playsInline
-        width={width}
-        height={height}
-      ></video>
+        <video
+          ref={wrappedVideoRef}
+          autoPlay
+          playsInline
+          width={width}
+          height={height}
+        ></video>
       </div>
       <canvas
         ref={canvasRef}
@@ -85,7 +87,12 @@
       {!opened && (
         <button
           onClick={open}
-          style={{ width: '10rem', minHeight: '2rem', fontSize: 'large', margin: '1rem' }}
+          style={{
+            width: '10rem',
+            minHeight: '2rem',
+            fontSize: 'large',
+            margin: '1rem'
+          }}
         >
           Open camera
         </button>
@@ -93,7 +100,12 @@
       {opened && (
         <button
           onClick={capture}
-          style={{ width: '10rem', minHeight: '2rem', fontSize: 'large', margin: '1rem' }}
+          style={{
+            width: '10rem',
+            minHeight: '2rem',
+            fontSize: 'large',
+            margin: '1rem'
+          }}
         >
           Take Picture
         </button>
@@ -120,7 +132,7 @@
     console.log('Got stream with constraints:', constraints)
     console.log(`Using video device: ${videoTracks[0].label}`)
     videoRef.current.srcObject = stream
-    tourDispatch({ type: 'setStream', stream })
+    updateTourState(draft => { draft.stream = stream })
     setOpened(true)
   }
 
@@ -142,17 +154,21 @@
       })
       const blob = await promise
       if (blob.size <= maxSize) {
-        tourDispatch({
-          type: 'setCapture',
-          capture: {
-            quality,
-            blob,
-            width,
-            height
-          }
-        })
+        updateState(quality, blob, width, height)
         break
       }
     }
+  }
+
+  function updateState (quality, blob, width, height) {
+    // Need to do in separate function because of Buble
+    updateTourState(draft => {
+      draft.capture = {
+        quality,
+        blob,
+        width,
+        height
+      }
+    })
   }
 }

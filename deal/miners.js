@@ -1,4 +1,4 @@
-({ tourState, tourDispatch }) => {
+({ tourState, updateTourState }) => {
   const miners = useMiners(clientNode)
   const myMiner = useActorAddress(clientMiner)
   const targetMiner = tourState.targetMiner
@@ -44,6 +44,6 @@
 
   function changed (evt) {
     const targetMiner = evt.currentTarget.value
-    tourDispatch({ type: 'setTargetMiner', targetMiner })
+    updateTourState(draft => { draft.targetMiner = targetMiner })
   }
 }

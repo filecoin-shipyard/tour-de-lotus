@@ -1,4 +1,4 @@
-({ tourState, tourDispatch }) => {
+({ tourState, updateTourState }) => {
   const [status, setStatus] = useState()
   const cid = tourState.cid
   const targetMiner = tourState.targetMiner
@@ -49,11 +49,6 @@
     </div>
   )
 
-  function changed (evt) {
-    const targetMiner = evt.currentTarget.value
-    tourDispatch({ type: 'setTargetMiner', targetMiner })
-  }
-
   async function proposeDeal () {
     const dataRef = {
       Data: {
@@ -74,7 +69,7 @@
       const result = await client.clientStartDeal(dataRef)
       const { "/": proposalCid } = result
       setStatus('Proposed: ' + proposalCid)
-      tourDispatch({ type: 'setProposalCid', proposalCid })
+      updateTourState(draft => { draft.proposalCid = proposalCid })
     } catch (e) {
       setStatus('Error: ' + e.message)
       console.log('Exception', e)

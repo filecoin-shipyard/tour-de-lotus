@@ -1,4 +1,4 @@
-({ tourState, tourDispatch }) => {
+({ tourState, updateTourState }) => {
   const [objectUrlAttribute, setObjectUrlAttribute] = useState()
   const cid = tourState.cid
   let width = 100
@@ -50,7 +50,7 @@
     async function doImport () {
       const cid = await client.import(tourState.capture.blob)
       console.log('Imported', cid)
-      tourDispatch({ type: 'setCid', cid })
+      updateTourState(draft => { draft.cid = cid })
     }
   }
   return (
