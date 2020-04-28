@@ -263,6 +263,25 @@ Let's Make a Deal!
   editorProps={{ style: { fontSize: '0.4em', background: '#001628' } }}
 />
 
+---
+
+<LiveCode
+  title='Propose Deal'
+  size='fullscreen'
+  code={require('!raw-loader!./deal/propose-deal.js')}
+  providerProps={{
+    transformCode,
+    noInline: true,
+    scope: {
+      slideIndex: 17,
+      TourContext,
+      client: clientNode,
+      ...baseImports
+    }
+  }}
+  editorProps={{ style: { fontSize: '0.4em', background: '#001628' } }}
+/>
+
 
 ---
 ## Blocks
