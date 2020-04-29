@@ -62,7 +62,7 @@
       Wallet: defaultWalletAddress,
       Miner: targetMiner,
       EpochPrice: epochPrice,
-      BlocksDuration: 100
+      MinBlocksDuration: 100
     }
     setStatus('Proposing...')
     try {

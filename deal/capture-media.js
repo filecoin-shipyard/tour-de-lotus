@@ -139,9 +139,9 @@
   async function capture () {
     var context = canvasRef.current.getContext('2d')
     context.drawImage(videoRef.current, 0, 0, width, height)
-    const maxSize = 2000
+    const maxSize = 1930
     let quality
-    for (quality = 0.95; quality > 0; quality -= 0.05) {
+    for (quality = 0.95; quality > 0; quality -= 0.01) {
       const promise = new Promise((resolve, reject) => {
         canvasRef.current.toBlob(
           blob => {

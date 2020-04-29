@@ -4,6 +4,8 @@
 
   useEffect(() => {
     if (!client || tourState.index !== slideIndex) return
+    // FIXME: ChainNotify causes node to hang
+    /*
     const [cancelFunc, promise] = client.chainNotify(changes => {
       for (const change of changes) {
         const { Type: changeType, Val: val } = change
@@ -21,6 +23,7 @@
     })
     promise.catch(err => { console.error(err) })
     return cancelFunc
+    */
   }, [client, tourState.index])
 
   useEffect(() => {

@@ -28,7 +28,7 @@
       <div style={{display: 'flex', justifyContent: 'center'}}>
         <ul style={{textAlign: 'left'}}>
           {miners && miners.map(miner => <li key={miner}>
-            {miner}: {minerPower[miner]}
+            {miner}: {minerPower[miner] && minerPower[miner].QualityAdjPower}
           </li>)}
         </ul>
       </div>
