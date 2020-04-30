@@ -16,7 +16,7 @@
         }}
       >
         <div>Select one to propose a deal with:</div>
-        <div style={{ textAlign: 'left', marginTop: '1rem' }}>
+        <div style={{ textAlign: 'left', marginTop: '1rem', fontSize: '60%' }}>
           {miners
             .filter(miner => miner !== myMiner)
             .map(miner => (

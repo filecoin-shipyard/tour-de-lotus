@@ -1,3 +1,4 @@
+import './set-globals'
 import { Head } from 'mdx-deck'
 import { TourContext } from './theme'
 export { default as theme } from './theme'
@@ -282,6 +283,24 @@ Let's Make a Deal!
   editorProps={{ style: { fontSize: '0.4em', background: '#001628' } }}
 />
 
+---
+
+<LiveCode
+  title='Watch Deal Status'
+  size='fullscreen'
+  code={require('!raw-loader!./deal/deal-status.js')}
+  providerProps={{
+    transformCode,
+    noInline: true,
+    scope: {
+      slideIndex: 18,
+      TourContext,
+      client: clientNode,
+      ...baseImports
+    }
+  }}
+  editorProps={{ style: { fontSize: '0.4em', background: '#001628' } }}
+/>
 
 ---
 ## Blocks

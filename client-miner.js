@@ -4,7 +4,7 @@ import BrowserProvider from './lotus-client-provider-browser';
 import schema from './lotus-client-schema';
 
 const api = 'lotus.testground.ipfs.team/api'
-const nodeNum = 0
+const nodeNum = window.nodeNumber
 const wsUrl = `wss://${api}/${nodeNum}/miner/rpc/v0`
 const provider = new BrowserProvider(wsUrl)
 const client = new LotusRPC(provider, { schema })

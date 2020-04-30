@@ -19,17 +19,25 @@
         })
       }
     })()
-    return () => { state.canceled = true }
+    return () => {
+      state.canceled = true
+    }
   }, [tourState.index, miners])
 
   return (
     <div>
       <h3>StateListMiners + StateMinerPower</h3>
-      <div style={{display: 'flex', justifyContent: 'center'}}>
-        <ul style={{textAlign: 'left'}}>
-          {miners && miners.map(miner => <li key={miner}>
-            {miner}: {minerPower[miner] && minerPower[miner].QualityAdjPower}
-          </li>)}
+      <div
+        style={{ display: 'flex', justifyContent: 'center', fontSize: '60%' }}
+      >
+        <ul style={{ textAlign: 'left' }}>
+          {miners &&
+            miners.map(miner => (
+              <li key={miner}>
+                {miner}:{' '}
+                {minerPower[miner] && minerPower[miner].QualityAdjPower}
+              </li>
+            ))}
         </ul>
       </div>
     </div>

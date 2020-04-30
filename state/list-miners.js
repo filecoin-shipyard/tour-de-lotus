@@ -10,7 +10,9 @@
       if (state.canceled) return
       setMiners(result.sort())
     })()
-    return () => { state.canceled = true }
+    return () => {
+      state.canceled = true
+    }
   }, [tourState.index])
 
   let content
@@ -18,9 +20,13 @@
     content = 'Loading...'
   } else {
     content = (
-      <div style={{display: 'flex', justifyContent: 'center'}}>
-        <ul style={{textAlign: 'left'}}>
-          {miners.map(miner => <li key={miner}>{miner}</li>)}
+      <div
+        style={{ display: 'flex', justifyContent: 'center', fontSize: '60%' }}
+      >
+        <ul style={{ textAlign: 'left' }}>
+          {miners.map(miner => (
+            <li key={miner}>{miner}</li>
+          ))}
         </ul>
       </div>
     )

@@ -51,6 +51,7 @@
       </div>
     )
   }
+  content = <div>Disabled</div>
   return (
     <div>
       <h2>ChainNotify</h2>

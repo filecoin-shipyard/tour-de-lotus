@@ -29,7 +29,7 @@
         )}
       </div>
       <h5 style={{ marginBottom: 0, marginTop: '0.2rem' }}>Duration</h5>
-      <div style={{ fontSize: 'small' }}>100 blocks (10 minutes)</div>
+      <div style={{ fontSize: 'small' }}>300 blocks (10 minutes)</div>
       <h5 style={{ marginBottom: 0, marginTop: '0.2rem' }}>Epoch Price</h5>
       <div style={{ fontSize: 'small' }}>{epochPrice}</div>
       <button
@@ -62,14 +62,17 @@
       Wallet: defaultWalletAddress,
       Miner: targetMiner,
       EpochPrice: epochPrice,
-      MinBlocksDuration: 100
+      MinBlocksDuration: 300
     }
     setStatus('Proposing...')
     try {
       const result = await client.clientStartDeal(dataRef)
       const { "/": proposalCid } = result
       setStatus('Proposed: ' + proposalCid)
-      updateTourState(draft => { draft.proposalCid = proposalCid })
+      updateTourState(draft => {
+        draft.proposalCid = proposalCid
+        delete draft.deal
+      })
     } catch (e) {
       setStatus('Error: ' + e.message)
       console.log('Exception', e)
