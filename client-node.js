@@ -3,16 +3,10 @@ import BrowserProvider from './lotus-client-provider-browser';
 // import schema from '@filecoin-shipyard/lotus-client-schema/prototype/testnet-v3.js';
 import schema from './lotus-client-schema';
 
-const api = 'lotus.testground.ipfs.team/api'
-const nodeNum = window.nodeNumber
-const wsUrl = `wss://${api}/${nodeNum}/node/rpc/v0`
+const api = '127.0.0.1'
+const wsUrl = `ws://${api}:9000/api/0/node/rpc/v0`
 const provider = new BrowserProvider(wsUrl, {
-  token: async () => {
-      const tokenUrl = `https://${api}/${nodeNum}/testplan/.lotus/token`
-      const response = await fetch(tokenUrl)
-      const token = await response.text()
-      return token
-  }
+  token: async () => 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBbGxvdyI6WyJyZWFkIiwid3JpdGUiLCJzaWduIiwiYWRtaW4iXX0.R73RlxclWW0Dl26sIhWO73YsIuKLJ-Q7hYA7CihgOOA'
 })
 const client = new LotusRPC(provider, { schema })
 

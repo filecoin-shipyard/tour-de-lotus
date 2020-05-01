@@ -1,0 +1,39 @@
+:9000
+
+log
+
+@api_node_rpc_0 {
+    path_regexp api ^/api/0/node/rpc/(.*)$
+}
+
+route @api_node_rpc_0 {
+  strip_prefix /api/0/node/* /api/0/node
+  reverse_proxy localhost:31234
+}
+
+@api_node_rest_0_options {
+    path_regexp api ^/api/0/node/rest/(.*)$
+    method OPTIONS
+}
+
+route @api_node_rest_0_options {
+    header Connection "keep-alive"
+    header Access-Control-Allow-Origin "http://127.0.0.1:8080"
+    header Access-Control-Allow-Methods "POST, GET, PUT, OPTIONS, DELETE"
+    header Access-Control-Max-Age "86400"
+    header Access-Control-Allow-Headers "*"
+    respond "" 204
+}
+
+@api_node_rest_0 {
+    path_regexp api ^/api/0/node/rest/(.*)$
+}
+
+route @api_node_rest_0 {
+  strip_prefix /api/0/node/* /api/0/node
+  reverse_proxy localhost:31234 {
+    header_down Access-Control-Allow-Origin "*"
+  }
+}
+
+

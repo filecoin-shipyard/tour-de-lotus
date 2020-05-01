@@ -1,10 +1,9 @@
 ({ tourState, updateTourState }) => {
   const miners = useMiners(clientNode)
-  const myMiner = useActorAddress(clientMiner)
   const targetMiner = tourState.targetMiner
 
   let content
-  if (!myMiner || !miners) {
+  if (!miners) {
     content = <div>Loading...</div>
   } else {
     content = (
@@ -16,10 +15,19 @@
         }}
       >
         <div>Select one to propose a deal with:</div>
-        <div style={{ textAlign: 'left', marginTop: '1rem', fontSize: '60%' }}>
-          {miners
-            .filter(miner => miner !== myMiner)
-            .map(miner => (
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            overflow: 'scroll',
+            height: '60vh',
+            padding: '0 3rem'
+          }}
+        >
+          <div
+            style={{ textAlign: 'left', marginTop: '1rem', fontSize: '60%' }}
+          >
+            {miners.map(miner => (
               <div key={miner}>
                 <input
                   type='radio'
@@ -31,6 +39,7 @@
                 {miner}
               </div>
             ))}
+          </div>
         </div>
       </div>
     )
@@ -44,6 +53,8 @@
 
   function changed (evt) {
     const targetMiner = evt.currentTarget.value
-    updateTourState(draft => { draft.targetMiner = targetMiner })
+    updateTourState(draft => {
+      draft.targetMiner = targetMiner
+    })
   }
 }

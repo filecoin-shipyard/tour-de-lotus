@@ -28,7 +28,13 @@
     <div>
       <h3>StateListMiners + StateMinerPower</h3>
       <div
-        style={{ display: 'flex', justifyContent: 'center', fontSize: '60%' }}
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          fontSize: '60%',
+          overflow: 'scroll',
+          height: '60vh'
+        }}
       >
         <ul style={{ textAlign: 'left' }}>
           {miners &&
