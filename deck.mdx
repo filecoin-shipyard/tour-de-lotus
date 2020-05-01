@@ -1,4 +1,3 @@
-import './set-globals'
 import { Head } from 'mdx-deck'
 import { TourContext } from './theme'
 export { default as theme } from './theme'
@@ -9,7 +8,6 @@ import { LiveCode } from 'mdx-deck-live-code'
 // import BrowserProvider from './lotus-client-provider-browser';
 // import schema from '@filecoin-shipyard/lotus-client-schema/prototype/testnet-v3.js';
 import { useState, useEffect, useRef, useCallback } from 'react'
-import ReactJson from 'react-json-view'
 import { useImmer } from 'use-immer'
 import clientNode from './client-node'
 import useMiners from './use-miners'
@@ -18,17 +16,10 @@ import transformCode from './transform'
 import baseImports from './base-imports'
 
 <Head>
-  <title>Tour de Lotus</title>
+  <title>selfie2interopnet</title>
 </Head>
 
-<div style={{display: 'flex', margin: '5rem', height: '90vh', alignItems: 'center'}}>
-  <div style={{width: '50%'}}>
-    <h1 style={{fontSize: '60pt'}}>Tour de Lotus</h1>
-  </div>
-  <div style={{width: '50%', height: '100%'}}>
-    <img style={{height: '100%'}} src='./images/tour-de-lotus.jpg' />
-  </div>
-</div>
+# selfie2interopnet
 
 ---
 
@@ -52,44 +43,6 @@ import baseImports from './base-imports'
 ---
 
 <LiveCode
-  title='State Power All'
-  size='fullscreen'
-  code={require('!raw-loader!./state/power-all.js')}
-  providerProps={{
-    transformCode,
-    noInline: true,
-    scope: {
-      slideIndex: 2,
-      TourContext,
-      client: clientNode,
-      ...baseImports
-    }
-  }}
-  editorProps={{ style: { fontSize: '0.4em', background: '#001628' } }}
-/>
-
----
-
-<LiveCode
-  title='State List Miners'
-  size='fullscreen'
-  code={require('!raw-loader!./state/list-miners.js')}
-  providerProps={{
-    transformCode,
-    noInline: true,
-    scope: {
-      slideIndex: 3,
-      TourContext,
-      client: clientNode,
-      ...baseImports
-    }
-  }}
-  editorProps={{ style: { fontSize: '0.4em', background: '#001628' } }}
-/>
-
----
-
-<LiveCode
   title='Capture Media'
   size='fullscreen'
   code={require('!raw-loader!./deal/capture-media.js')}
@@ -97,7 +50,7 @@ import baseImports from './base-imports'
     transformCode,
     noInline: true,
     scope: {
-      slideIndex: 4,
+      slideIndex: 2,
       TourContext,
       ...baseImports
     }
@@ -115,7 +68,7 @@ import baseImports from './base-imports'
     transformCode,
     noInline: true,
     scope: {
-      slideIndex: 5,
+      slideIndex: 3,
       TourContext,
       client: clientNode,
       ...baseImports
@@ -134,7 +87,7 @@ import baseImports from './base-imports'
     transformCode,
     noInline: true,
     scope: {
-      slideIndex: 6,
+      slideIndex: 4,
       TourContext,
       clientNode,
       ...baseImports,
@@ -155,7 +108,7 @@ import baseImports from './base-imports'
     transformCode,
     noInline: true,
     scope: {
-      slideIndex: 7,
+      slideIndex: 5,
       TourContext,
       client: clientNode,
       ...baseImports
@@ -174,7 +127,7 @@ import baseImports from './base-imports'
     transformCode,
     noInline: true,
     scope: {
-      slideIndex: 8,
+      slideIndex: 6,
       TourContext,
       client: clientNode,
       ...baseImports
@@ -193,7 +146,7 @@ import baseImports from './base-imports'
     transformCode,
     noInline: true,
     scope: {
-      slideIndex: 9,
+      slideIndex: 7,
       TourContext,
       client: clientNode,
       ...baseImports

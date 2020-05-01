@@ -2,6 +2,11 @@
   const miners = useMiners(clientNode)
   const targetMiner = tourState.targetMiner
 
+  const annotations = {
+    't02271': '@jimpick home iMac',
+    't02284': '@jimpick AWS'
+  }
+
   let content
   if (!miners) {
     content = <div>Loading...</div>
@@ -27,7 +32,19 @@
           <div
             style={{ textAlign: 'left', marginTop: '1rem', fontSize: '60%' }}
           >
-            {miners.map(miner => (
+            {miners.filter(miner => annotations[miner]).map(miner => (
+              <div key={miner}>
+                <input
+                  type='radio'
+                  name='miner'
+                  value={miner}
+                  checked={miner === targetMiner}
+                  onChange={changed}
+                />
+                {miner} {annotations[miner]}
+              </div>
+            ))}
+            {miners.filter(miner => !annotations[miner]).map(miner => (
               <div key={miner}>
                 <input
                   type='radio'

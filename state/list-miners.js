@@ -1,6 +1,11 @@
 ({ tourState }) => {
   const [miners, setMiners] = useState()
 
+  const annotations = {
+    't02271': '@jimpick home iMac',
+    't02284': '@jimpick AWS'
+  }
+
   useEffect(() => {
     let state = { canceled: false }
     if (tourState.index !== slideIndex) return
@@ -32,7 +37,10 @@
           }}
         >
           <ul style={{ textAlign: 'left' }}>
-            {miners.map(miner => (
+            {miners.filter(miner => annotations[miner]).map(miner => (
+              <li key={miner}>{miner} {annotations[miner]}</li>
+            ))}
+            {miners.filter(miner => !annotations[miner]).map(miner => (
               <li key={miner}>{miner}</li>
             ))}
           </ul>

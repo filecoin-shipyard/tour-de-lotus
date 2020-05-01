@@ -2,7 +2,7 @@
 	"name": "@filecoin-shipyard/tour-de-lotus",
 	"version": "0.0.1",
 	"scripts": {
-    "dev": "caddy2 run --config Caddyfile.dev",
+		"dev": "caddy2 run --config Caddyfile.dev",
 		"start": "mdx-deck deck.mdx",
 		"build": "mdx-deck build deck.mdx",
 		"pdf": "mdx-deck pdf deck.mdx",
@@ -18,7 +18,6 @@
 		"mdx-deck-live-code": "^0.1.0",
 		"react": "^16.13.1",
 		"react-dom": "^16.13.1",
-		"react-json-view": "^1.19.1",
 		"use-immer": "^0.4.0"
 	},
 	"devDependencies": {

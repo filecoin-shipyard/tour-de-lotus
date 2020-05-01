@@ -6,8 +6,11 @@ import produce from 'immer'
 
 export const TourContext = React.createContext()
 
+console.log('Jim typeof window', typeof window)
+
 let initialState
-const initialStateJson = localStorage.getItem('state')
+const initialStateJson = typeof window !== 'undefined' ?
+  window.localStorage.getItem('state') : '{}'
 try {
   initialState = JSON.parse(initialStateJson) || {}
 } catch (e) {
@@ -30,7 +33,9 @@ function CustomProvider (props) {
       delete draft.stream
     })
     if (stateToSave !== savedState) {
-      localStorage.setItem('state', JSON.stringify(stateToSave))
+      if (typeof window !== 'undefined') {
+        window.localStorage.setItem('state', JSON.stringify(stateToSave))
+      }
       setSavedState(stateToSave)
     }
   }, [tourState])
