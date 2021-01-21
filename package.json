@@ -13,7 +13,7 @@
 		"@filecoin-shipyard/lotus-client-rpc": "^0.0.3",
 		"@filecoin-shipyard/lotus-client-schema": "^0.0.6",
 		"@openworklabs/filecoin-number": "^0.0.6",
-		"immer": "^6.0.3",
+		"immer": "^8.0.1",
 		"mdx-deck-live-code": "^0.1.0",
 		"react": "^16.13.1",
 		"react-dom": "^16.13.1",
